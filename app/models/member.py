@@ -23,5 +23,5 @@ class Member(Base):
     updated_at: Mapped[datetime | None] = mapped_column(
         DateTime, nullable=True)
 
-    borrowings = relationship(
+    borrowing = relationship(
         "Borrowing", back_populates="member", cascade="all, delete-orphan")

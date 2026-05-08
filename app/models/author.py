@@ -19,5 +19,5 @@ class Author(Base):
     updated_at: Mapped[datetime | None] = mapped_column(
         DateTime, nullable=True)
 
-    book_authors = relationship(
+    book_author = relationship(
         "BookAuthor", back_populates="author", cascade="all, delete-orphan")

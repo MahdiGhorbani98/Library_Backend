@@ -23,9 +23,9 @@ class Book(Base):
     is_available: Mapped[bool] = mapped_column(
         Boolean, default=True, nullable=False)
 
-    borrowings = relationship(
+    borrowing = relationship(
         "Borrowing", back_populates="book", cascade="all, delete-orphan")
-    book_authors = relationship(
+    book_author = relationship(
         "BookAuthor", back_populates="book", cascade="all, delete-orphan")
-    book_categories = relationship(
+    book_category = relationship(
         "BookCategory", back_populates="book", cascade="all, delete-orphan")
