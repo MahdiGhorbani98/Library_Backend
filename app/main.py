@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 # from app.api.member import router as member_router
-from app.api.member import router as member_router
+from app.api.member import member_router
 from app.core.database import engine
 from app.models.base import Base
 # from app.models import member, book, author, category, borrowing, book_author, book_category
