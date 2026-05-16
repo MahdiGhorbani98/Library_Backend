@@ -16,9 +16,9 @@ Run project with: uvicorn app.main:app --reload
 MEMBERS:
 POST   /members/              - Create member (✓ exists)
 GET    /members/              - List all members (✓ exists)
-GET    /members/{id}          - Get specific member [NEW]
-PUT    /members/{id}          - Update member (is_borrowing, email, username) [NEW]
-DELETE /members/{id}          - Soft delete member (optional) [NEW]
+GET    /members/{id}          - Get specific member ✓
+PUT    /members/{id}          - Update member (is_borrowing, email, username) ✓
+DELETE /members/{id}          - Soft delete member (optional) ✓
 
 BOOKS:
 POST   /books/                - Add new book to library [NEW]
