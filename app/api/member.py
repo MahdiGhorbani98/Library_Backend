@@ -3,7 +3,8 @@ from sqlalchemy.orm import Session
 
 from app.core.deps import get_db
 from app.models.member import Member
-from app.schemas.member import MemberCreate, MemberResponse
+from app.schemas import member
+from app.schemas.member import MemberCreate, MemberResponse, MemberUpdate
 
 # Create a router for member endpoints with /members prefix
 member_router = APIRouter(prefix="/members", tags=["Members"])
@@ -41,19 +42,37 @@ def create_member(member: MemberCreate, db: Session = Depends(get_db)):
     return new_member
 
 
-# ! Handle authentication
-# ! follow a good pattern for error handling and validation in the future (reuse it across all endpoints)
+@member_router.put('/{member_id}')
+def update_memeber(member_update: MemberUpdate, member_id: int = Path(gt=0),  db: Session = Depends(get_db)):
+    member = db.query(Member).filter(Member.id == member_id).first()
+    member.user_name = member_update.user_name
+    member.email = member_update.email
+    member.is_borrowing = member_update.is_borrowing
+    member.status = member_update.status
+    db.add(member)
+    db.commit()
 
 
-# * why we don't use async here?
-# Recommendation:
-# If traffic is low/medium: Keep synchronous(easier, less complex)
-# If you want async: Switch your database to async driver + update all endpoints
+@member_router.delete('/{member_id}')
+def delete_member(member_id: int = Path(gt=0), db: Session = Depends(get_db)):
+    member = db.query(Member).filter(Member.id == member_id).first()
+    db.delete(member)
+    db.commit()
 
+    # Soft delete member (optional)
 
-# * best sorting in CRUD operations:
- # GET all (read list)
- # GET specific (read detail)
- # POST (create)
- # PUT (update)
- # DELETE (remove)
+    # ! Handle authentication
+    # ! follow a good pattern for error handling and validation in the future (reuse it across all endpoints)
+    # ! follow a good pattern for status code (reuse it across all endpoints)
+
+    # * why we don't use async here?
+    # Recommendation:
+    # If traffic is low/medium: Keep synchronous(easier, less complex)
+    # If you want async: Switch your database to async driver + update all endpoints
+
+    # * best sorting in CRUD operations:
+    # GET all (read list)
+    # GET specific (read detail)
+    # POST (create)
+    # PUT (update)
+    # DELETE (remove)
