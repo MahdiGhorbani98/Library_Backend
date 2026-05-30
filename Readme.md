@@ -40,3 +40,13 @@ GET    /authors/              - List all authors [NEW]
 
 POST   /categories/           - Create category [NEW]
 GET    /categories/           - List all categories [NEW]
+
+My roadmap to create backend project by fastAPI:
+- design entities, tables (models) in DB level
+- choose a folder structures
+- write models, schemas, api
+- implement servieces like auth ... (NOT YET)
+- reusable error handling (status codes) (NOT YET)
+- reusable redundant codes (like item not found...) (NOT YET)
+
+- deploy project (by Docker and server config) (NOT YET) 
